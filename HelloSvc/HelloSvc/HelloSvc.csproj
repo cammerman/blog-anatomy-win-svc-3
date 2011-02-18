@@ -53,6 +53,8 @@
     <Compile Include="Install\HelloServiceProcessInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Greeter\IGreeter.cs" />
+    <Compile Include="Greeter\Greeter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -72,5 +74,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac 2.3.2.632-NET40\Autofac.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Greeter\" />
   </ItemGroup>
 </Project>

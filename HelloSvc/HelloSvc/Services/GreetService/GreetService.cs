@@ -10,20 +10,29 @@ namespace HelloSvc.Services
 
 	internal class GreetService : ServiceBase
 	{
-		public GreetService(IServiceNameProvider serviceNameProvider)
+		protected virtual IGreeter Greeter
+		{
+			get;
+			private set;
+		}
+		
+		public GreetService(IServiceNameProvider serviceNameProvider, IGreeter greeter)
 		{
 			serviceNameProvider.ThrowIfNull("serviceNameProvider");
 			
 			ServiceName =
 				serviceNameProvider.ServiceName
 					.ThrowIfNullOrEmpty("serviceNameProvider.ServiceName");
-
+			
+			Greeter = greeter.ThrowIfNull("greeter");
+			
 			CanStop = true;
 			AutoLog = false;
 		}
 
 		protected override void OnStart(String[] args)
 		{
+			Greeter.SayHello();
 		}
 
 		protected override void OnStop()

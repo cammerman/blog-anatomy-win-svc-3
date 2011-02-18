@@ -23,6 +23,11 @@ namespace HelloSvc
 				.RegisterType<Config.ServiceNameProvider>()
 				.As<Config.IServiceNameProvider>()
 				.InstancePerLifetimeScope();
+			
+			builder
+				.RegisterType<Greeter>()
+				.As<IGreeter>()
+				.InstancePerLifetimeScope();
 
 			return builder.Build();
 		}
