@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ServiceProcess;
+using System.Reflection;
 
 using Autofac;
 
@@ -20,8 +21,9 @@ namespace HelloSvc
 				.InstancePerLifetimeScope();
 
 			builder
-				.RegisterType<Config.ServiceNameProvider>()
-				.As<Config.IServiceNameProvider>()
+				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+				.InNamespace("HelloSvc.SettingsProviders")
+				.AsImplementedInterfaces()
 				.InstancePerLifetimeScope();
 			
 			builder

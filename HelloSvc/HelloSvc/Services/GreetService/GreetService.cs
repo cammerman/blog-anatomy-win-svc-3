@@ -6,7 +6,7 @@ using System.ServiceProcess;
 
 namespace HelloSvc.Services
 {
-	using Config;
+	using SettingsProviders;
 
 	internal class GreetService : ServiceBase
 	{

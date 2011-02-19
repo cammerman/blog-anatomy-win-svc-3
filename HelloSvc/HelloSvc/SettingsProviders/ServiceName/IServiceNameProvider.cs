@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HelloSvc.Config
+namespace HelloSvc.SettingsProviders
 {
 	internal interface IServiceNameProvider
 	{

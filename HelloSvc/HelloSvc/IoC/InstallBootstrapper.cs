@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ServiceProcess;
 using System.Configuration.Install;
+using System.Reflection;
 
 using Autofac;
 
@@ -26,12 +27,13 @@ namespace HelloSvc
 				.RegisterType<Services.GreetServiceInstaller>()
 				.As<Installer>()
 				.InstancePerLifetimeScope();
-
+			
 			builder
-				.RegisterType<Config.ServiceNameProvider>()
-				.As<Config.IServiceNameProvider>()
+				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+				.InNamespace("HelloSvc.SettingsProviders")
+				.AsImplementedInterfaces()
 				.InstancePerLifetimeScope();
-
+			
 			return builder.Build();
 		}
 	}

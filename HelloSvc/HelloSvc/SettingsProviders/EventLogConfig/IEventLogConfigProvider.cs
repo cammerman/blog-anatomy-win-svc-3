@@ -1,5 +1,6 @@
 using System;
-namespace HelloSvc
+
+namespace HelloSvc.SettingsProviders
 {
 	public interface IEventLogConfigProvider
 	{
