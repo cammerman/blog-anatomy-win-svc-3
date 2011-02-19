@@ -34,8 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Config\IServiceNameProvider.cs" />
-    <Compile Include="Config\ServiceNameProvider.cs" />
     <Compile Include="Extensions\Generic.ThrowHelpers.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IoC\InstallBootstrapper.cs" />
@@ -55,6 +53,10 @@
     </Compile>
     <Compile Include="Greeter\IGreeter.cs" />
     <Compile Include="Greeter\Greeter.cs" />
+    <Compile Include="SettingsProviders\ServiceName\ConstantServiceNameProvider.cs" />
+    <Compile Include="SettingsProviders\ServiceName\IServiceNameProvider.cs" />
+    <Compile Include="SettingsProviders\EventLogConfig\IEventLogConfigProvider.cs" />
+    <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -77,5 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Greeter\" />
+    <Folder Include="SettingsProviders\" />
+    <Folder Include="SettingsProviders\EventLogConfig\" />
+    <Folder Include="SettingsProviders\ServiceName\" />
   </ItemGroup>
 </Project>
