@@ -56,7 +56,11 @@
     <Compile Include="SettingsProviders\ServiceName\ConstantServiceNameProvider.cs" />
     <Compile Include="SettingsProviders\ServiceName\IServiceNameProvider.cs" />
     <Compile Include="SettingsProviders\EventLogConfig\IEventLogConfigProvider.cs" />
-    <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogProvider.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\EventLogLogger.cs" />
+    <Compile Include="Logging\IEventLogFactory.cs" />
+    <Compile Include="Logging\EventLogFactory.cs" />
+    <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogConfigProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -68,11 +72,15 @@
   </Target>
   -->
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Configuration.Install" />
-    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da">
+    <Reference Include="System">
+    </Reference>
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.ServiceProcess">
+    </Reference>
+    <Reference Include="System.Configuration.Install">
+    </Reference>
+    <Reference Include="Autofac">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac 2.3.2.632-NET40\Autofac.dll</HintPath>
     </Reference>
@@ -82,5 +90,6 @@
     <Folder Include="SettingsProviders\" />
     <Folder Include="SettingsProviders\EventLogConfig\" />
     <Folder Include="SettingsProviders\ServiceName\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
 </Project>

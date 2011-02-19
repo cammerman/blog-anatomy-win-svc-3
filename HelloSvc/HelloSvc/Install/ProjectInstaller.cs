@@ -19,7 +19,7 @@ namespace HelloSvc.Install
 			var container = bootstrapper.Build();
 
 			var installers = container.Resolve<IEnumerable<Installer>>();
-
+			
 			Installers.AddRange(
 				installers.ToArray());
 		}

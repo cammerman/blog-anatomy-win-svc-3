@@ -7,6 +7,7 @@ using System.ServiceProcess;
 namespace HelloSvc.Services
 {
 	using SettingsProviders;
+	using Logging;
 
 	internal class GreetService : ServiceBase
 	{
@@ -16,7 +17,13 @@ namespace HelloSvc.Services
 			private set;
 		}
 		
-		public GreetService(IServiceNameProvider serviceNameProvider, IGreeter greeter)
+		protected virtual ILogger Logger
+		{
+			get;
+			private set;
+		}
+		
+		public GreetService(IServiceNameProvider serviceNameProvider, ILogger logger, IGreeter greeter)
 		{
 			serviceNameProvider.ThrowIfNull("serviceNameProvider");
 			
@@ -25,18 +32,29 @@ namespace HelloSvc.Services
 					.ThrowIfNullOrEmpty("serviceNameProvider.ServiceName");
 			
 			Greeter = greeter.ThrowIfNull("greeter");
+			Logger = logger.ThrowIfNull("logger");
 			
 			CanStop = true;
-			AutoLog = false;
+			AutoLog = true;
 		}
 
 		protected override void OnStart(String[] args)
 		{
-			Greeter.SayHello();
+			Logger.Message("Starting service.");
+			
+			try
+			{
+				Greeter.SayHello();
+			}
+			catch (Exception ex)
+			{
+				Logger.ExceptionAlone(ex);
+			}
 		}
 
 		protected override void OnStop()
 		{
+			Logger.Message("Stopping service.");
 		}
 	}
 }

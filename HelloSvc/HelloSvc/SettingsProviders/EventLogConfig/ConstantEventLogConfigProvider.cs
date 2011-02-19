@@ -15,7 +15,7 @@ namespace HelloSvc.SettingsProviders
 
 		public virtual String SourceName
 		{
-			get { return "GreeterService"; }
+			get { return "Greeter"; }
 		}
 		
 	}
