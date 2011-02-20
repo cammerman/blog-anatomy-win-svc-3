@@ -2,7 +2,7 @@ using System;
 
 namespace HelloSvc.SettingsProviders
 {
-	public class ConstantEventLogProvider : IEventLogConfigProvider
+	internal class ConstantEventLogProvider : IEventLogConfigProvider
 	{
 		public ConstantEventLogProvider ()
 		{

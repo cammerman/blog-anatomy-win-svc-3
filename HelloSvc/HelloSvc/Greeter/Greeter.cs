@@ -5,7 +5,7 @@ namespace HelloSvc
 {
 	using Logging;
 	
-	public class Greeter : IGreeter
+	internal class Greeter : IGreeter
 	{
 		protected virtual ILogger Logger
 		{

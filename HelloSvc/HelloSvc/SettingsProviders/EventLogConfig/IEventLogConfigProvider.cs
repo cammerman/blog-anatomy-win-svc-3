@@ -2,7 +2,7 @@ using System;
 
 namespace HelloSvc.SettingsProviders
 {
-	public interface IEventLogConfigProvider
+	internal interface IEventLogConfigProvider
 	{
 		String LogName { get; }
 		String SourceName { get; }

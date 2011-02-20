@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HelloSvc.Logging
 {
-	public class EventLogLogger : ILogger
+	internal class EventLogLogger : ILogger
 	{
 		protected virtual EventLog Log
 		{

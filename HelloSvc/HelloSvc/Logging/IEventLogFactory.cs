@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace HelloSvc.Logging
 {
-	public interface IEventLogFactory
+	internal interface IEventLogFactory
 	{
 		EventLog Create();
 	}

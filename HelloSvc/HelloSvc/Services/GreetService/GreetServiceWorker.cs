@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace HelloSvc
 {
-	public class GreetServiceWorker : IGreetServiceWorker
+	internal class GreetServiceWorker : IGreetServiceWorker
 	{
 		protected virtual IGreeter Greeter
 		{

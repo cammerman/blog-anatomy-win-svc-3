@@ -2,7 +2,7 @@ using System;
 
 namespace HelloSvc.Logging
 {
-	public interface ILogger
+	internal interface ILogger
 	{
 		void Message(String message);
 		void ExceptionWithMessage(Exception ex, String message);

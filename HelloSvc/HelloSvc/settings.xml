@@ -1,0 +1,3 @@
+<GreeterSettings
+	GreetingFileName="hola"
+	WorkIntervalSeconds="5" />

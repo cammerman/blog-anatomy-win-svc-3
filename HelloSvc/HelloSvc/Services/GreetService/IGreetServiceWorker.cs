@@ -1,7 +1,7 @@
 using System;
 namespace HelloSvc
 {
-	public interface IGreetServiceWorker
+	internal interface IGreetServiceWorker
 	{
 		Boolean Started { get; }
 		Boolean Paused { get; }

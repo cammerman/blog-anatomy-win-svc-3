@@ -5,7 +5,7 @@ namespace HelloSvc.Logging
 {
 	using SettingsProviders;
 	
-	public class EventLogFactory : IEventLogFactory
+	internal class EventLogFactory : IEventLogFactory
 	{
 		protected virtual String LogName
 		{

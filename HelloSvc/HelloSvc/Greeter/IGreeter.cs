@@ -2,7 +2,7 @@ using System;
 
 namespace HelloSvc
 {
-	public interface IGreeter
+	internal interface IGreeter
 	{
 		void SayHello();
 	}
