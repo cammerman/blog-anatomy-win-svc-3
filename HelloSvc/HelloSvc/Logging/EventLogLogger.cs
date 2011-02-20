@@ -19,21 +19,42 @@ namespace HelloSvc.Logging
 		
 		public void Message(string message)
 		{
-			Log.WriteEntry(message);
+			try
+			{
+				Log.WriteEntry(message);
+			}
+			catch
+			{
+				// Suppress. Nothing can be done except to not let logging crash the service.
+			}
 		}
 
 		public void ExceptionWithMessage(Exception ex, string message)
 		{
-			var formatter = new StringBuilder(message);
-			formatter.AppendLine();
-			formatter.AppendLine(ex.ToString());
-			
-			Log.WriteEntry(formatter.ToString());
+			try
+			{
+				var formatter = new StringBuilder(message);
+				formatter.AppendLine();
+				formatter.AppendLine(ex.ToString());
+				
+				Log.WriteEntry(formatter.ToString());
+			}
+			catch
+			{
+				// Suppress. Nothing can be done except to not let logging crash the service.
+			}
 		}
 
 		public void ExceptionAlone(Exception ex)
 		{
-			Log.WriteEntry(ex.ToString());
+			try
+			{
+				Log.WriteEntry(ex.ToString());
+			}
+			catch
+			{
+				// Suppress. Nothing can be done except to not let logging crash the service.
+			}
 		}
 	}
 }
