@@ -14,17 +14,8 @@ namespace HelloSvc
 	
 	internal class ServiceBootstrapper
 	{
-		protected virtual EventLog ResolveEventLog(IComponentContext context)
+		protected virtual void RegisterService(ContainerBuilder builder)
 		{
-			return
-				context.Resolve<IEventLogFactory>()
-					.Create();
-		}
-		
-		public IContainer Build()
-		{
-			var builder = new ContainerBuilder();
-
 			builder
 				.RegisterType<Services.GreetService>()
 				.As<ServiceBase>()
@@ -34,6 +25,54 @@ namespace HelloSvc
 				.RegisterType<GreetServiceWorker>()
 				.As<IGreetServiceWorker>()
 				.InstancePerLifetimeScope();
+		}
+		
+		protected virtual EventLog ResolveEventLog(IComponentContext context)
+		{
+			return
+				context.Resolve<IEventLogFactory>()
+					.Create();
+		}
+		
+		protected virtual void RegisterLogging(ContainerBuilder builder)
+		{
+			builder
+				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+				.InNamespace("HelloSvc.Logging")
+				.AsImplementedInterfaces()
+				.InstancePerLifetimeScope();
+			
+			builder
+				.Register(ResolveEventLog)
+				.AsSelf()
+				.InstancePerLifetimeScope();
+		}
+		
+		protected virtual Config.IConfigSettings ResolveConfigSettings(IComponentContext context)
+		{
+			return
+				context.Resolve<Config.IConfigLoader>()
+					.LoadConfig();
+		}
+		
+		protected virtual void RegisterConfig(ContainerBuilder builder)
+		{
+			builder
+				.RegisterType<Config.ConfigLoader>()
+				.As<Config.IConfigLoader>()
+				.InstancePerLifetimeScope();
+			
+			builder
+				.Register(ResolveConfigSettings)
+				.As<Config.IConfigSettings>()
+				.InstancePerLifetimeScope();
+		}
+		
+		public IContainer Build()
+		{
+			var builder = new ContainerBuilder();
+
+			RegisterService(builder);
 			
 			builder
 				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
@@ -46,16 +85,8 @@ namespace HelloSvc
 				.As<IGreeter>()
 				.InstancePerLifetimeScope();
 			
-			builder
-				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-				.InNamespace("HelloSvc.Logging")
-				.AsImplementedInterfaces()
-				.InstancePerLifetimeScope();
-			
-			builder
-				.Register(ResolveEventLog)
-				.AsSelf()
-				.InstancePerLifetimeScope();
+			RegisterLogging(builder);
+			RegisterConfig(builder);
 
 			return builder.Build();
 		}

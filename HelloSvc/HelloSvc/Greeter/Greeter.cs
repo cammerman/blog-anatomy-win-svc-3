@@ -7,15 +7,40 @@ namespace HelloSvc
 	
 	internal class Greeter : IGreeter
 	{
+		protected virtual String FileName
+		{
+			get;
+			private set;
+		}
+		
 		protected virtual ILogger Logger
 		{
 			get;
 			private set;
 		}
 		
-		public Greeter(ILogger logger)
+		public Greeter(SettingsProviders.IGreetingFileName fileNameProvider, ILogger logger)
 		{
+			FileName = fileNameProvider.FileName;
 			Logger = logger.ThrowIfNull("logger");
+		}
+		
+		protected virtual String FilePath()
+		{
+			return
+				Path.Combine(
+					@"C:\Hello",
+					FileName);
+		}
+		
+		protected virtual FileStream CreateFile()
+		{
+			return
+				new FileStream(
+					FilePath(),
+					FileMode.Create,
+					FileAccess.Write,
+					FileShare.Read);
 		}
 	
 		public void SayHello()
@@ -24,7 +49,7 @@ namespace HelloSvc
 			
 			try
 			{
-				using (var helloStream = new FileStream(@"C:\Hello\World.txt", FileMode.Create, FileAccess.Write, FileShare.Read));
+				using (var helloStream = CreateFile());
 			}
 			catch (Exception ex)
 			{

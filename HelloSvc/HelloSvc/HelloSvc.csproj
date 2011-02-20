@@ -60,13 +60,17 @@
     <Compile Include="Logging\EventLogLogger.cs" />
     <Compile Include="Logging\IEventLogFactory.cs" />
     <Compile Include="Logging\EventLogFactory.cs" />
-    <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogConfigProvider.cs" />
     <Compile Include="Services\GreetService\IGreetServiceWorker.cs" />
     <Compile Include="Services\GreetService\GreetServiceWorker.cs" />
     <Compile Include="Config\IConfigLoader.cs" />
     <Compile Include="Config\IConfigSettings.cs" />
     <Compile Include="Config\ConfigSettings.cs" />
     <Compile Include="Config\ConfigLoader.cs" />
+    <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogConfigProvider.cs" />
+    <Compile Include="SettingsProviders\GreetingFileName\IGreetingFileName.cs" />
+    <Compile Include="SettingsProviders\GreetingFileName\ConfigGreetingFileNameProvider.cs" />
+    <Compile Include="SettingsProviders\WorkInterval\IWorkInterval.cs" />
+    <Compile Include="SettingsProviders\WorkInterval\ConfigWorkIntervalProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -99,8 +103,13 @@
     <Folder Include="SettingsProviders\ServiceName\" />
     <Folder Include="Logging\" />
     <Folder Include="Config\" />
+    <Folder Include="SettingsProviders\GreetingFileName\" />
+    <Folder Include="SettingsProviders\WorkInterval\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="settings.xml" />
+    <None Include="settings.xml">
+      <DeployService-Deploy>true</DeployService-Deploy>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
