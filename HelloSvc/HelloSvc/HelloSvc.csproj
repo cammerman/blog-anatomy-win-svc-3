@@ -61,6 +61,8 @@
     <Compile Include="Logging\IEventLogFactory.cs" />
     <Compile Include="Logging\EventLogFactory.cs" />
     <Compile Include="SettingsProviders\EventLogConfig\ConstantEventLogConfigProvider.cs" />
+    <Compile Include="Services\GreetService\IGreetServiceWorker.cs" />
+    <Compile Include="Services\GreetService\GreetServiceWorker.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -80,7 +82,7 @@
     </Reference>
     <Reference Include="System.Configuration.Install">
     </Reference>
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=2.3.2.632, Culture=neutral, PublicKeyToken=17863af14b0044da">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Autofac 2.3.2.632-NET40\Autofac.dll</HintPath>
     </Reference>

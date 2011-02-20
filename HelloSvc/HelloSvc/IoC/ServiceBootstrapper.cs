@@ -29,7 +29,12 @@ namespace HelloSvc
 				.RegisterType<Services.GreetService>()
 				.As<ServiceBase>()
 				.InstancePerLifetimeScope();
-
+			
+			builder
+				.RegisterType<GreetServiceWorker>()
+				.As<IGreetServiceWorker>()
+				.InstancePerLifetimeScope();
+			
 			builder
 				.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
 				.InNamespace("HelloSvc.SettingsProviders")

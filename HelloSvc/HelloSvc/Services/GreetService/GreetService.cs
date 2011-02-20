@@ -23,7 +23,13 @@ namespace HelloSvc.Services
 			private set;
 		}
 		
-		public GreetService(IServiceNameProvider serviceNameProvider, ILogger logger, IGreeter greeter)
+		protected virtual Func<IGreetServiceWorker> WorkerFactory
+		{
+			get;
+			private set;
+		}
+		
+		public GreetService(IServiceNameProvider serviceNameProvider, ILogger logger, Func<IGreetServiceWorker> workerFactory)
 		{
 			serviceNameProvider.ThrowIfNull("serviceNameProvider");
 			
@@ -31,30 +37,49 @@ namespace HelloSvc.Services
 				serviceNameProvider.ServiceName
 					.ThrowIfNullOrEmpty("serviceNameProvider.ServiceName");
 			
-			Greeter = greeter.ThrowIfNull("greeter");
 			Logger = logger.ThrowIfNull("logger");
+			WorkerFactory = workerFactory.ThrowIfNull("workerFactory");
 			
 			CanStop = true;
 			AutoLog = true;
+		}
+		
+		protected IGreetServiceWorker CurrentWorker
+		{
+			get;
+			set;
 		}
 
 		protected override void OnStart(String[] args)
 		{
 			Logger.Message("Starting service.");
 			
-			try
-			{
-				Greeter.SayHello();
+			if (CurrentWorker == null)
+			{	
+				try
+				{
+					CurrentWorker = WorkerFactory();
+					CurrentWorker.Start();
+					
+					Logger.Message("Service started.");
+				}
+				catch (Exception ex)
+				{
+					Logger.ExceptionAlone(ex);
+				}
 			}
-			catch (Exception ex)
+			else
 			{
-				Logger.ExceptionAlone(ex);
+				Logger.Message("Cannot start service. Service is already running.");
 			}
 		}
 
 		protected override void OnStop()
 		{
 			Logger.Message("Stopping service.");
+			CurrentWorker.Stop();
+			CurrentWorker = null;
+			Logger.Message("Service stopped.");
 		}
 	}
 }
