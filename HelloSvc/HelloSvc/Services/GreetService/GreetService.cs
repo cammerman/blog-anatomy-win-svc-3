@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.ServiceProcess;
 
+using Autofac.Features.OwnedInstances;
+
 namespace HelloSvc.Services
 {
 	using SettingsProviders;
@@ -23,13 +25,13 @@ namespace HelloSvc.Services
 			private set;
 		}
 		
-		protected virtual Func<IGreetServiceWorker> WorkerFactory
+		protected virtual Func<Owned<IGreetServiceWorker>> WorkerFactory
 		{
 			get;
 			private set;
 		}
 		
-		public GreetService(IServiceNameProvider serviceNameProvider, ILogger logger, Func<IGreetServiceWorker> workerFactory)
+		public GreetService(IServiceNameProvider serviceNameProvider, ILogger logger, Func<Owned<IGreetServiceWorker>> workerFactory)
 		{
 			serviceNameProvider.ThrowIfNull("serviceNameProvider");
 			
@@ -58,7 +60,7 @@ namespace HelloSvc.Services
 			{	
 				try
 				{
-					CurrentWorker = WorkerFactory();
+					CurrentWorker = WorkerFactory().Value;
 					CurrentWorker.Start();
 					
 					Logger.Message("Service started.");
